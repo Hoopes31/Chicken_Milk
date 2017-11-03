@@ -1,0 +1,20 @@
+@using scaffold.Models
+
+<h1>Wall</h1>
+<h3>Post a Message!</h3>
+<div>
+    @Html.Partial("AddMessage")
+</div>
+@{
+    foreach (var message in ViewBag.Messages)
+    {
+        LikeViewModel Form = ViewBag.LikeForm;
+        Form.message_id = message.id;
+        <br>
+        <p class="text-primary">@message.user.first_name Says:</p>
+        <p>"@message.body"</p>
+        
+        <a asp-controller="Wall" asp-action="LikedBy" asp-route-message_id="@message.id">@message.likes.Count people like this!</a> @Html.Partial("Like", Form)
+        <hr>
+    }
+}
